@@ -1,47 +1,58 @@
-<script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <div class="p-4">
+    <FormKit type="form" #default="{ value }" @submit="handleSubmit">
+      <FormKit
+        type="text"
+        name="name"
+        id="name"
+        label="Name"
+        help="Please enter your name here"
+        validation="required|length:5,20"
+      />
+      <FormKit
+        v-if="formDisabled !== 'checkbox'"
+        type="checkbox"
+        name="isActive"
+        help="Is the above user active?"
+        validation="accepted"
+        :validation-messages="{
+          accepted: 'User must be active',
+        }"
+      />
+      <FormKit type="group" name="address" v-if="formDisabled !== 'address'">
+        <FormKit
+          type="text"
+          name="address1"
+          label="Flat No. and Street"
+          max="90"
+          validation="required"
+        />
+        <FormKit type="text" name="city" label="City" validation="required" />
+        <FormKit type="text" name="state" label="State" validation="required" />
+        <FormKit type="text" name="zip" label="Zip" validation="required" />
+      </FormKit>
+      <pre>{{ value }}</pre>
+    </FormKit>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <div class="flex mt-16">
+      <FormKit type="button" @click="formDisabled = 'address'">
+        Activate checkbox
+      </FormKit>
+      <FormKit type="button" @click="formDisabled = 'checkbox'">
+        Activate Address
+      </FormKit>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const formDisabled = ref('')
+
+const handleSubmit = (value: any) => {
+  console.log(value)
 }
+</script>
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
+<style scoped></style>
