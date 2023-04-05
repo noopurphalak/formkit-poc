@@ -1,6 +1,11 @@
 <template>
   <div class="p-4">
-    <FormKit type="form" #default="{ value }" @submit="handleSubmit">
+    <FormKit
+      type="form"
+      id="myForm"
+      #default="{ value }"
+      @submit="handleSubmit"
+    >
       <FormKit
         type="text"
         name="name"
@@ -13,6 +18,7 @@
         v-if="formDisabled !== 'checkbox'"
         type="checkbox"
         name="isActive"
+        label="Is the user active?"
         help="Is the above user active?"
         validation="accepted"
         :validation-messages="{
@@ -41,12 +47,14 @@
       <FormKit type="button" @click="formDisabled = 'checkbox'">
         Activate Address
       </FormKit>
+      <FormKit type="button" @click="reset('myForm')"> Clear Form </FormKit>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { reset } from '@formkit/core'
 
 const formDisabled = ref('checkbox')
 
