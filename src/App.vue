@@ -48,7 +48,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const formDisabled = ref('')
+const formDisabled = ref('checkbox')
 
 const handleSubmit = (value: any) => {
   console.log(value)
