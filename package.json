@@ -12,6 +12,10 @@
   "dependencies": {
     "@formkit/themes": "^0.16.4",
     "@formkit/vue": "^0.16.4",
+    "ant-design-vue": "^3.2.17",
+    "less": "^4.1.3",
+    "less-loader": "^11.1.0",
+    "unplugin-vue-components": "^0.24.1",
     "vue": "^3.2.47"
   },
   "devDependencies": {

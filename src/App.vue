@@ -30,13 +30,25 @@
           type="text"
           name="address1"
           label="Flat No. and Street"
-          max="90"
-          validation="required"
+          validation="required|length:5,90"
         />
         <FormKit type="text" name="city" label="City" validation="required" />
         <FormKit type="text" name="state" label="State" validation="required" />
         <FormKit type="text" name="zip" label="Zip" validation="required" />
       </FormKit>
+      <FormKit
+        :type="antSelect"
+        label="Frameworks"
+        name="frameworks"
+        help="Please select your favorite framework"
+        validation="required"
+        :options="[
+          { label: 'Vue', value: 'vue' },
+          { label: 'React', value: 'react' },
+          { label: 'Angular', value: 'angular' },
+        ]"
+        allowClear
+      />
       <pre>{{ value }}</pre>
     </FormKit>
 
@@ -55,6 +67,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { reset } from '@formkit/core'
+import { createInput } from '@formkit/vue'
+import AntFormKitSelect from '@/formkit-components/AntFormKitSelect.vue'
+
+const antSelect = createInput(AntFormKitSelect)
 
 const formDisabled = ref('checkbox')
 
