@@ -37,7 +37,7 @@
         <FormKit type="text" name="zip" label="Zip" validation="required" />
       </FormKit>
       <FormKit
-        :type="antSelect"
+        type="antSelect"
         label="Frameworks"
         name="frameworks"
         help="Please select your favorite framework"
@@ -60,22 +60,27 @@
         Activate Address
       </FormKit>
       <FormKit type="button" @click="reset('myForm')"> Clear Form </FormKit>
+      <FormKit type="button" @click="induceErrors">Induce Errors</FormKit>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { reset } from '@formkit/core'
-import { createInput } from '@formkit/vue'
-import AntFormKitSelect from '@/formkit-components/AntFormKitSelect.vue'
+import { reset, setErrors } from '@formkit/core'
 
-const antSelect = createInput(AntFormKitSelect)
-
-const formDisabled = ref('checkbox')
+const formDisabled = ref('address')
 
 const handleSubmit = (value: any) => {
   console.log(value)
+}
+
+const induceErrors = () => {
+  setErrors('myForm', {
+    name: ['Name is Required', 'Name is not of desired length'],
+    isActive: ['User is not active'],
+    frameworks: ['Please select a framework'],
+  })
 }
 </script>
 
