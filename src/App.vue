@@ -67,9 +67,15 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { reset, setErrors } from '@formkit/core'
+import { getNode, reset, setErrors } from '@formkit/core'
+import { onMounted } from 'vue'
 
 const formDisabled = ref('address')
+// const prefilledValues = ref({
+//   name: 'Noopur',
+//   isActive: true,
+//   frameworks: 'vue',
+// })
 
 const handleSubmit = (value: any) => {
   console.log(value)
@@ -82,6 +88,15 @@ const induceErrors = () => {
     frameworks: ['Please select a framework'],
   })
 }
+
+onMounted(() => {
+  const n = getNode('myForm')
+  n?.input({
+    name: 'Noopur',
+    isActive: true,
+    frameworks: 'vue',
+  })
+})
 </script>
 
 <style scoped></style>
